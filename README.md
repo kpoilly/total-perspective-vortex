@@ -21,4 +21,7 @@ The project involves processing EEG signals, applying dimensionality reduction a
 ## Dataset
 
 The data used comes from the PhysioNet database.
+
+https://physionet.org/content/eegmmidb/1.0.0/S001/#files-panel
+
 (This README will be updated and detailed as the project progresses.)

@@ -166,15 +166,15 @@ def load_data(data_path):
             run_id = os.path.basename(edf_file).replace(subj_id, '').split('.')[0]
             event_file = edf_file + ".event"
             
-            print(f"--- {subj_id} - {run_id} ---")
-            print(f"EDF: {edf_file}")
-            print(f"Event: {event_file}")
+            # print(f"--- {subj_id} - {run_id} ---")
+            # print(f"EDF: {edf_file}")
+            # print(f"Event: {event_file}")
             
             try:
                 raw = mne.io.read_raw_edf(edf_file, preload=True, verbose='WARNING')
                 raw_objs[subj_id][run_id] = raw
                 events_data[subj_id][run_id] = raw.annotations
-                print(f"  Loaded: {raw.info['nchan']} canals, {raw.n_times} samples, {raw.info['sfreq']} Hz")
+                # print(f"  Loaded: {raw.info['nchan']} canals, {raw.n_times} samples, {raw.info['sfreq']} Hz")
                 
             except Exception as e:
                 print(f"Error with {edf_file}: {e}")
@@ -249,7 +249,7 @@ def main():
     
     print("Saving data...")
     np.savez('data/processed/data.npz',
-             X_data=X_select, y_labels=y_binary)
+             X=X_select, y=y_binary)
     print("Data saved to data/processed/")
 
     

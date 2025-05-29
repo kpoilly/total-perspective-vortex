@@ -108,17 +108,27 @@ def main():
         
     raw_objs, events_data = load_data(data_path)
     
-    example_subj = 'S001'
-    example_run = 'R01'
+    # example_subj = 'S001'
+    # example_run = 'R01'
+    # print(f"--- {example_subj} - {example_run} ---")
+    # print(f"Events:")
+    # annots = events_data[example_subj][example_run]
+    # for i in range(min(5, len(annots))):
+    #     print(f"  Onset: {annots.onset[i]:.2f}s, Duration: {annots.duration[i]:.2f}s, Description: '{annots.description[i]}'")
+    # visualize_data(raw_objs[example_subj][example_run])
+    # filtered_data = filter_data(raw_objs[example_subj][example_run])
+    # visualize_data(filtered_data)
     
-    print(f"--- {example_subj} - {example_run} ---")
-    print(f"Events:")
-    annots = events_data[example_subj][example_run]
-    for i in range(min(5, len(annots))):
-        print(f"  Onset: {annots.onset[i]:.2f}s, Duration: {annots.duration[i]:.2f}s, Description: '{annots.description[i]}'")
-    visualize_data(raw_objs[example_subj][example_run])
-    filtered_data = filter_data(raw_objs[example_subj][example_run])
-    visualize_data(filtered_data)
+    print("\n--- Starting Filtering of the Entire Dataset ---")
+    filtered_objs = {}
+    for subj_id, subj_data in raw_objs.items():
+        filtered_objs[subj_id] = {}
+        for run_id, raw in subj_data.items():
+            if raw is not None:
+                filtered_objs[subj_id][run_id] = filter_data(raw, l_freq=1.0, h_freq=40.0, notch_freqs=[50.0])
+            else:
+                filtered_objs[subj_id][run_id] = None
+    print("--- Filtering of the Entire Dataset Complete ---")
 
 if __name__ == '__main__':
     main()
